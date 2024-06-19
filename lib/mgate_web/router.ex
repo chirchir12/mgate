@@ -7,6 +7,8 @@ defmodule MgateWeb.Router do
 
   scope "/api", MgateWeb do
     pipe_through :api
+    post "/transfers/execute", TransferController, :create
+    get "/transfers/:id", TransferController, :show
   end
 
   # Enable LiveDashboard and Swoosh mailbox preview in development
