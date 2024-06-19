@@ -16,6 +16,14 @@ import Config
 #
 # Alternatively, you can use `mix phx.gen.release` to generate a `bin/server`
 # script that automatically sets the env var above.
+mbanking_url =
+  System.get_env("MBANKING_URL") ||
+    raise """
+    mbanking base url is required
+    """
+
+config :mgate, Mgate.Mbanking, url: mbanking_url
+
 if System.get_env("PHX_SERVER") do
   config :mgate, MgateWeb.Endpoint, server: true
 end

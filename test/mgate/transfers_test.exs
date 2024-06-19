@@ -21,7 +21,12 @@ defmodule Mgate.TransfersTest do
     end
 
     test "create_transfer/1 with valid data creates a transfer" do
-      valid_attrs = %{source: 42, destination: 42, uuid: "some uuid", transfer_type: "some transfer_type"}
+      valid_attrs = %{
+        source: 42,
+        destination: 42,
+        uuid: "some uuid",
+        transfer_type: "some transfer_type"
+      }
 
       assert {:ok, %Transfer{} = transfer} = Transfers.create_transfer(valid_attrs)
       assert transfer.source == 42
@@ -36,7 +41,13 @@ defmodule Mgate.TransfersTest do
 
     test "update_transfer/2 with valid data updates the transfer" do
       transfer = transfer_fixture()
-      update_attrs = %{source: 43, destination: 43, uuid: "some updated uuid", transfer_type: "some updated transfer_type"}
+
+      update_attrs = %{
+        source: 43,
+        destination: 43,
+        uuid: "some updated uuid",
+        transfer_type: "some updated transfer_type"
+      }
 
       assert {:ok, %Transfer{} = transfer} = Transfers.update_transfer(transfer, update_attrs)
       assert transfer.source == 43

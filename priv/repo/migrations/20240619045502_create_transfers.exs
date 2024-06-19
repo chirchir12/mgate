@@ -11,9 +11,13 @@ defmodule Mgate.Repo.Migrations.CreateTransfers do
       add :amount, :decimal, null: false
       add :status, :string, null: false
       add :meta, :map
+      add :response, :map
+      add :response_id, :string, null: true
 
       timestamps(type: :utc_datetime)
     end
+
+    create index(:transfers, [:response_id])
 
     create unique_index(:transfers, [:uuid])
   end

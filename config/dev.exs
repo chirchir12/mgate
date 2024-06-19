@@ -22,7 +22,7 @@ config :mgate, MgateWeb.Endpoint,
   http: [ip: {127, 0, 0, 1}, port: 4000],
   check_origin: false,
   code_reloader: true,
-  debug_errors: true,
+  debug_errors: false,
   secret_key_base: "sWlY1qg/ByVyAOZgHsevgNN4qvD4x89ItDeqGGXnvLvVtNblcqanGwNYNkmENPLw",
   watchers: []
 

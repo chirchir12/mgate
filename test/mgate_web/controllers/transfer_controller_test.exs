@@ -55,7 +55,10 @@ defmodule MgateWeb.TransferControllerTest do
   describe "update transfer" do
     setup [:create_transfer]
 
-    test "renders transfer when data is valid", %{conn: conn, transfer: %Transfer{id: id} = transfer} do
+    test "renders transfer when data is valid", %{
+      conn: conn,
+      transfer: %Transfer{id: id} = transfer
+    } do
       conn = put(conn, ~p"/api/transfers/#{transfer}", transfer: @update_attrs)
       assert %{"id" => ^id} = json_response(conn, 200)["data"]
 

@@ -4,7 +4,7 @@ defmodule Mgate.Transfers.Transfer do
 
   @allowed_status ["created", "pending", "completed", "failed"]
 
-  @permitted [:source, :destination, :uuid, :user_id, :transfer_type, :amount, :meta]
+  @permitted [:source, :destination, :uuid, :user_id, :transfer_type, :amount, :meta, :status, :response, :response_id]
 
   @required [:source, :destination, :uuid, :user_id, :transfer_type, :amount]
 
@@ -17,6 +17,10 @@ defmodule Mgate.Transfers.Transfer do
     field :status, :string
     field :user_id, Ecto.UUID
     field :meta, :map
+    # third parti response
+    field :response, :map
+    # third parties can mess around
+    field :response_id, :string
 
     timestamps(type: :utc_datetime)
   end
@@ -28,25 +32,33 @@ defmodule Mgate.Transfers.Transfer do
     |> validate_required(@required)
     |> unique_constraint(:uuid)
     |> put_status()
-    |> IO.inspect()
     |> validate_status()
   end
 
   defp put_status(%Ecto.Changeset{valid?: true} = changeset) do
     status = changeset |> get_change(:status)
+
     case status do
       nil -> changeset |> put_change(:status, "created")
-        _ -> changeset
+      _ -> changeset
     end
   end
+
   defp put_status(changeset), do: changeset
 
   defp validate_status(changeset) do
     status = changeset |> get_change(:status)
-    case status in @allowed_status do
-      true -> changeset
-      false -> changeset |> add_error(:status, "invalid status #{status}, allowed status are #{Enum.join(@allowed_status, ", ")}")
 
+    case status in @allowed_status do
+      true ->
+        changeset
+
+      false ->
+        changeset
+        |> add_error(
+          :status,
+          "invalid status #{status}, allowed status are #{Enum.join(@allowed_status, ", ")}"
+        )
     end
   end
 end

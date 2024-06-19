@@ -55,11 +55,11 @@ defmodule Mgate.Transfers do
 
   """
   def update_transfer(%Transfer{} = transfer, attrs) do
+    IO.inspect(attrs)
     transfer
     |> Transfer.changeset(attrs)
     |> Repo.update()
   end
-
 
   @doc """
   Returns an `%Ecto.Changeset{}` for tracking transfer changes.
