@@ -23,7 +23,8 @@ defmodule MgateWeb.TransferJSON do
       destination: transfer.destination,
       transfer_type: transfer.transfer_type,
       user_id: transfer.user_id,
-      amount: transfer.amount
+      amount: transfer.amount,
+      status: transfer.status
     }
   end
 end

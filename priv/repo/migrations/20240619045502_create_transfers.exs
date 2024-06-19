@@ -9,6 +9,7 @@ defmodule Mgate.Repo.Migrations.CreateTransfers do
       add :destination, :integer, null: false
       add :transfer_type, :string, null: false
       add :amount, :decimal, null: false
+      add :status, :string, null: false
       add :meta, :map
 
       timestamps(type: :utc_datetime)
