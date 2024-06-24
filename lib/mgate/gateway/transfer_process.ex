@@ -107,6 +107,16 @@ defmodule Mgate.Gateway.TransferProcess do
     end
   end
 
+  @impl true
+  def terminate(:normal, {%Transfer{uuid: ref_id}, _meta}) do
+    Logger.debug("TERMINATING WORKER - #{ref_id}")
+  end
+
+  @impl true
+  def terminate(_reason, {%Transfer{uuid: ref_id}, _meta}) do
+    Logger.debug("BAD TERMINATION SIGNAL - WORKER - #{ref_id}")
+  end
+
   defp retry_poll({transfer, meta}) do
     new_meta = %{meta | poll_retries: meta.poll_retries + 1}
     schedule_poll(transfer, new_meta)
@@ -152,4 +162,6 @@ defmodule Mgate.Gateway.TransferProcess do
         {:error, error_changeset}
     end
   end
+
+
 end
