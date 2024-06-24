@@ -17,6 +17,8 @@ defmodule Mgate.Application do
       # Start a worker by calling: Mgate.Worker.start_link(arg)
       # {Mgate.Worker, arg},
       # Start to serve requests, typically the last entry
+      Mgate.Gateway.TransferRegistry,
+      Mgate.Gateway.TransferSupervisor,
       MgateWeb.Endpoint
     ]
 

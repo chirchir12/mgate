@@ -24,6 +24,10 @@ defmodule Mgate.Transfers do
   """
   def get_transfer!(id), do: Repo.get!(Transfer, id)
 
+  def get_by_uuid!(uuid) do
+    Repo.get_by!(Transfer, uuid: uuid)
+  end
+
   @doc """
   Creates a transfer.
 
@@ -56,6 +60,7 @@ defmodule Mgate.Transfers do
   """
   def update_transfer(%Transfer{} = transfer, attrs) do
     IO.inspect(attrs)
+
     transfer
     |> Transfer.changeset(attrs)
     |> Repo.update()

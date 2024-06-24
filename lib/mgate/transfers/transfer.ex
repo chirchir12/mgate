@@ -2,9 +2,20 @@ defmodule Mgate.Transfers.Transfer do
   use Ecto.Schema
   import Ecto.Changeset
 
-  @allowed_status ["created", "pending", "completed", "failed"]
+  @allowed_status ["created", "pending", "completed", "failed", "stale"]
 
-  @permitted [:source, :destination, :uuid, :user_id, :transfer_type, :amount, :meta, :status, :response, :response_id]
+  @permitted [
+    :source,
+    :destination,
+    :uuid,
+    :user_id,
+    :transfer_type,
+    :amount,
+    :meta,
+    :status,
+    :response,
+    :response_id
+  ]
 
   @required [:source, :destination, :uuid, :user_id, :transfer_type, :amount]
 
