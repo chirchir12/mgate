@@ -3,8 +3,8 @@ defmodule Mgate.Integrations.Mbanking do
   @headers [accept: "application/json", "content-type": "application/json"]
 
   def create(%Transfer{} = transfer, options \\ []) do
-    url = options |> Keyword.get(:url)
-    url = "#{url}/v1/payments/initiate"
+    base = options |> Keyword.get(:url)
+    url = "#{base}/v1/payments/initiate"
 
     body =
       Jason.encode!(%{
@@ -22,8 +22,8 @@ defmodule Mgate.Integrations.Mbanking do
   end
 
   def get_status(%Transfer{response_id: id}, options) do
-    url = options |> Keyword.get(:url)
-    url = "#{url}/v1/payments/status/#{id}"
+    base = options |> Keyword.get(:url)
+    url = "#{base}/v1/payments/status/#{id}"
 
     case HTTPoison.get(url, @headers) do
       {:ok, %HTTPoison.Response{status_code: code} = res} -> handle_response(res, code)
