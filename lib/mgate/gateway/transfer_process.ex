@@ -124,10 +124,10 @@ defmodule Mgate.Gateway.TransferProcess do
   end
 
   defp retry_create({transfer, meta}) do
-    meta = %{meta | create_retries: meta.create_retries + 1}
-    timer_ref = schedule_create(transfer, meta)
-    meta = %{meta | create_ref: timer_ref}
-    {:noreply, {transfer, meta}}
+    new_meta = %{meta | create_retries: meta.create_retries + 1}
+    timer_ref = schedule_create(transfer, new_meta)
+    new_meta = %{new_meta | create_ref: timer_ref}
+    {:noreply, {transfer, new_meta}}
   end
 
   defp schedule_poll(transfer, meta) do
@@ -144,7 +144,7 @@ defmodule Mgate.Gateway.TransferProcess do
     in_mill = 2_000 * meta.create_retries
 
     Logger.info(
-      "CREATE JOB FOR #{transfer.uuid}. RETRY COUNT: #{meta.poll_retries} after #{in_mill} ms "
+      "CREATE JOB FOR #{transfer.uuid}. RETRY COUNT: #{meta.create_retries} after #{in_mill} ms "
     )
 
     Process.send_after(self(), :create, in_mill)

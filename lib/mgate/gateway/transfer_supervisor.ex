@@ -22,6 +22,4 @@ defmodule Mgate.Gateway.TransferSupervisor do
     {:ok, pid} = DynamicSupervisor.start_child(__MODULE__, child_spec)
     {:ok, pid}
   end
-
-  DEF
 end
